@@ -77,7 +77,7 @@
       logger.info("" + address + ":" + port + " disconnected");
       if (listener != null) {
         name = listener[0], cb = listener[1];
-        event.removeListener(name, cb);
+        channels.remove(name, cb);
         return listener = null;
       }
     });
@@ -85,7 +85,7 @@
       var cb, name;
       if (listener != null) {
         name = listener[0], cb = listener[1];
-        event.removeListener(name, cb);
+        channels.remove(name, cb);
         return listener = null;
       }
     });
@@ -98,7 +98,7 @@
           return c.write(JSON.stringify(log));
         };
         listener = [name, cb];
-        return event.on(name, cb);
+        return channels.listen(name, cb);
       }
     });
   });

@@ -20,6 +20,11 @@ class Channels
     listen: (name, cb) ->
         @event.on name, cb
 
+
+    # remove listener
+    remove: (name, cb) ->
+        @event.removeListener name, cb
+
     
     # get available channels
     availables: ->

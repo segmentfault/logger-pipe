@@ -74,13 +74,13 @@ tcp = net.createServer (c) ->
         logger.info "#{address}:#{port} disconnected"
         if listener?
             [name, cb] = listener
-            event.removeListener name, cb
+            channels.remove name, cb
             listener = null
 
     c.on 'error', ->
         if listener?
             [name, cb] = listener
-            event.removeListener name, cb
+            channels.remove name, cb
             listener = null
     
     c.on 'data', (data)->
@@ -93,7 +93,7 @@ tcp = net.createServer (c) ->
             cb = (log) ->
                 c.write JSON.stringify log
             listener = [name, cb]
-            event.on name, cb
+            channels.listen name, cb
 
 
 tcp.listen argv.t, argv.s, ->

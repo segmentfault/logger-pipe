@@ -22,6 +22,10 @@
       return this.event.on(name, cb);
     };
 
+    Channels.prototype.remove = function(name, cb) {
+      return this.event.removeListener(name, cb);
+    };
+
     Channels.prototype.availables = function() {
       return this.lists;
     };

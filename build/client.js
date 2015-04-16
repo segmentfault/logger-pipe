@@ -39,8 +39,13 @@
     var first;
     first = true;
     return client.on('data', function(data) {
-      var info, name, time;
-      info = JSON.parse(data);
+      var e, info, name, time;
+      try {
+        info = JSON.parse(data);
+      } catch (_error) {
+        e = _error;
+        return logger.error(e);
+      }
       if (first) {
         first = false;
         if (argv.c != null) {

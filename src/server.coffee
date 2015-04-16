@@ -56,6 +56,12 @@ udp.bind argv.p, argv.h, ->
 
             if bPos > 0
                 log.tag = sub.substring 1, bPos
+                
+                matched = log.tag.match /^([_a-b0-9]+)\[([0-9]+)\]$/i
+                if matched?
+                    log.tag = matched[1]
+                    log.pid = matched[2]
+
                 log.message = sub.substring bPos + 2
 
             channels.send log

@@ -39,7 +39,10 @@ handler = (client) ->
     first = yes
 
     client.on 'data', (data) ->
-        info = JSON.parse data
+        try
+            info = JSON.parse data
+        catch e
+            return logger.error e
 
         if first
             first = no

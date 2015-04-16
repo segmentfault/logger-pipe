@@ -50,13 +50,18 @@
       logger.info("received " + msg.length + " bytes from " + info.address + ":" + info.port);
       raw = msg.toString('utf8', 0);
       return syslog.parse(raw, function(log) {
-        var aPos, bPos, match, sub;
+        var aPos, bPos, match, matched, sub;
         match = log.host + (log.pid != null ? "[" + log.pid + "]" : '');
         aPos = (log.originalMessage.indexOf(match)) + match.length;
         sub = log.originalMessage.substring(aPos);
         bPos = sub.indexOf(':');
         if (bPos > 0) {
           log.tag = sub.substring(1, bPos);
+          matched = log.tag.match(/^([_a-b0-9]+)\[([0-9]+)\]$/i);
+          if (matched != null) {
+            log.tag = matched[1];
+            log.pid = matched[2];
+          }
           log.message = sub.substring(bPos + 2);
         }
         return channels.send(log);

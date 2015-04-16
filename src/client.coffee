@@ -12,6 +12,7 @@ net = require 'net'
 winston = require 'winston'
 ssh = require 'ssh2'
 fs = require 'fs'
+Table = require 'cli-table'
 
 # create logger object
 logger = new winston.Logger
@@ -56,8 +57,15 @@ handler = (client) ->
             else
                 client.end()
                 console.log "Available Channels:\n"
+
+                table = new Table
+                    head: ['Channel Name', 'Last Update']
+                    colWidths: [40, 30]
+
                 for name, time of info
-                    console.log "#{name}\t\t\t#{time}"
+                    table.push [name, time]
+
+                console.log table.toString()
                 process.exit 1
         else
             console.log "#{info[0]}: #{info[1]}"

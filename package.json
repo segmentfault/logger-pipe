@@ -1,6 +1,6 @@
 {
   "name": "logger-pipe",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Logger Pipe",
   "main": "build/server.js",
   "scripts": {
@@ -17,6 +17,7 @@
   "author": "joyqi",
   "license": "MIT",
   "dependencies": {
+    "cli-table": "^0.3.1",
     "glossy": "^0.1.7",
     "optimist": "^0.6.1",
     "ssh2": "^0.4.6",

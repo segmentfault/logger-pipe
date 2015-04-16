@@ -56,8 +56,12 @@
         sub = log.originalMessage.substring(aPos + 1);
         bPos = sub.indexOf(':');
         cPos = sub.indexOf(' ');
-        if (bPos > 0 && cPos > bPos) {
-          log.tag = sub.substring(0, bPos);
+        if (bPos > 0) {
+          if (cPos > 0 && cPos < bPos) {
+            log.tag = sub.substring(cPos, bPos);
+          } else {
+            log.tag = sub.substring(0, bPos);
+          }
           matched = log.tag.match(/^(\w+)\[(\d+)\]$/i);
           if (matched != null) {
             log.tag = matched[1];

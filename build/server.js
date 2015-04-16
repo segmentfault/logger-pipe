@@ -65,23 +65,40 @@
   });
 
   tcp = net.createServer(function(c) {
-    var address, lists, port;
+    var address, listener, lists, port;
     logger.info("" + c.remoteAddress + ":" + c.remotePort + " connected");
+    listener = null;
     lists = channels.availables();
     c.write(JSON.stringify(lists));
     address = c.remoteAddress;
     port = c.remotePort;
     c.on('close', function() {
-      return logger.info("" + address + ":" + port + " disconnected");
+      var cb, name;
+      logger.info("" + address + ":" + port + " disconnected");
+      if (listener != null) {
+        name = listener[0], cb = listener[1];
+        event.removeListener(name, cb);
+        return listener = null;
+      }
+    });
+    c.on('error', function() {
+      var cb, name;
+      if (listener != null) {
+        name = listener[0], cb = listener[1];
+        event.removeListener(name, cb);
+        return listener = null;
+      }
     });
     return c.on('data', function(data) {
-      var name;
+      var cb, name;
       name = data.toString().replace(/^\s*(.+)\s*$/, '$1');
       if (lists[name] != null) {
         logger.info("" + c.remoteAddress + ":" + c.remotePort + " is now listening at " + name);
-        return channels.listen(name, function(log) {
+        cb = function(log) {
           return c.write(JSON.stringify(log));
-        });
+        };
+        listener = [name, cb];
+        return event.on(name, cb);
       }
     });
   });

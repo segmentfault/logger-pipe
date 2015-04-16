@@ -63,6 +63,7 @@ udp.bind argv.p, argv.h, ->
 
 tcp = net.createServer (c) ->
     logger.info "#{c.remoteAddress}:#{c.remotePort} connected"
+    listener = null
     
     lists = channels.availables()
     c.write JSON.stringify lists
@@ -71,6 +72,16 @@ tcp = net.createServer (c) ->
     port = c.remotePort
     c.on 'close', ->
         logger.info "#{address}:#{port} disconnected"
+        if listener?
+            [name, cb] = listener
+            event.removeListener name, cb
+            listener = null
+
+    c.on 'error', ->
+        if listener?
+            [name, cb] = listener
+            event.removeListener name, cb
+            listener = null
     
     c.on 'data', (data)->
         name = data.toString()
@@ -79,8 +90,10 @@ tcp = net.createServer (c) ->
         if lists[name]?
             logger.info "#{c.remoteAddress}:#{c.remotePort} is now listening at #{name}"
             
-            channels.listen name, (log) ->
+            cb = (log) ->
                 c.write JSON.stringify log
+            listener = [name, cb]
+            event.on name, cb
 
 
 tcp.listen argv.t, argv.s, ->

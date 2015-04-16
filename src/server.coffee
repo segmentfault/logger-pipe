@@ -53,8 +53,9 @@ udp.bind argv.p, argv.h, ->
             aPos = (log.originalMessage.indexOf match) + match.length
             sub = log.originalMessage.substring aPos
             bPos = sub.indexOf ':'
+            cPos = sub.indexOf ' '
 
-            if bPos > 0
+            if bPos > 0 && cPos > bPos
                 log.tag = sub.substring 1, bPos
                 
                 matched = log.tag.match /^(\w+)\[(\d+)\]$/i

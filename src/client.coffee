@@ -57,7 +57,7 @@ handler = (client) ->
                 client.end()
                 console.log "Available Channels:\n"
                 for name, time of info
-                    console.log "#{name}\t\t#{time}"
+                    console.log "#{name}\t\t\t#{time}"
                 process.exit 1
         else
             console.log "#{info[0]}: #{info[1]}"

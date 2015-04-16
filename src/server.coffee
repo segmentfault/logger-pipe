@@ -57,11 +57,11 @@ udp.bind argv.p, argv.h, ->
 
             if bPos > 0
                 if cPos > 0 && cPos < bPos
-                    log.tag = sub.substring cPos, bPos
+                    log.tag = sub.substring cPos + 1, bPos
                 else
                     log.tag = sub.substring 0, bPos
                 
-                matched = log.tag.match /^(\w+)\[(\d+)\]$/i
+                matched = log.tag.match /^([_a-z0-9-\.]+)\[(\d+)\]$/i
                 if matched?
                     log.tag = matched[1]
                     log.pid = matched[2]

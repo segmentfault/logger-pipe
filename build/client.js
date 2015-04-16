@@ -61,7 +61,7 @@
           console.log("Available Channels:\n");
           for (name in info) {
             time = info[name];
-            console.log("" + name + "\t\t" + time);
+            console.log("" + name + "\t\t\t" + time);
           }
           return process.exit(1);
         }

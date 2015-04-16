@@ -53,7 +53,7 @@
         var aPos, bPos, cPos, match, matched, sub;
         match = log.host + (log.pid != null ? "[" + log.pid + "]" : '');
         aPos = (log.originalMessage.indexOf(match)) + match.length;
-        sub = log.originalMessage.substring(aPos);
+        sub = log.originalMessage.substring(aPos + 1);
         bPos = sub.indexOf(':');
         cPos = sub.indexOf(' ');
         if (bPos > 0 && cPos > bPos) {

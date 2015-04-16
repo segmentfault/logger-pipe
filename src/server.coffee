@@ -51,7 +51,7 @@ udp.bind argv.p, argv.h, ->
         syslog.parse raw, (log) ->
             match = log.host + (if log.pid? then "[#{log.pid}]" else '')
             aPos = (log.originalMessage.indexOf match) + match.length
-            sub = log.originalMessage.substring aPos
+            sub = log.originalMessage.substring aPos + 1
             bPos = sub.indexOf ':'
             cPos = sub.indexOf ' '
 

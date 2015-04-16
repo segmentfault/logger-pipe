@@ -57,7 +57,7 @@
         bPos = sub.indexOf(':');
         if (bPos > 0) {
           log.tag = sub.substring(1, bPos);
-          matched = log.tag.match(/^([_a-b0-9]+)\[([0-9]+)\]$/i);
+          matched = log.tag.match(/^(\w+)\[(\d+)\]$/i);
           if (matched != null) {
             log.tag = matched[1];
             log.pid = matched[2];

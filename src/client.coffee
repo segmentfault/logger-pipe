@@ -76,6 +76,7 @@ if argv['ssh-host']?
         host: parts[0]
         port: if parts[1]? then parseInt parts[1] else 22
         username: argv['ssh-user']
+        tryKeyboard: yes
 
     if argv['ssh-key']?
         options.privateKey = fs.readFileSync argv['ssh-key']

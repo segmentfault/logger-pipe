@@ -1,6 +1,6 @@
 {
   "name": "logger-pipe",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Logger Pipe",
   "main": "build/server.js",
   "scripts": {
@@ -10,6 +10,11 @@
     "type": "git",
     "url": "https://github.com/SegmentFault/logger-pipe.git"
   },
+  "bin": {
+    "logger-pipe-client": "./bin/logger-pipe-client",
+    "logger-pipe-server": "./bin/logger-pipe-server"
+  },
+  "preferGlobal": true,
   "keywords": [
     "logger",
     "robot"

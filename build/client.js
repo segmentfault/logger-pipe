@@ -83,7 +83,8 @@
     options = {
       host: parts[0],
       port: parts[1] != null ? parseInt(parts[1]) : 22,
-      username: argv['ssh-user']
+      username: argv['ssh-user'],
+      tryKeyboard: true
     };
     if (argv['ssh-key'] != null) {
       options.privateKey = fs.readFileSync(argv['ssh-key']);
